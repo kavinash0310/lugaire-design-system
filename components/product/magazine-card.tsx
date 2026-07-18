@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import Link from "next/link"
 import { AnimatePresence, motion } from "motion/react"
 import { Heart, Maximize2 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -83,6 +84,15 @@ export function MagazineCard({
           className="object-cover opacity-0 transition-opacity duration-[700ms] ease-[var(--ease-luxe)] group-hover:opacity-100"
         />
 
+        {/* Full-frame link into the product detail page. Sits above the
+            imagery but below the interactive controls (z-20) so the wishlist
+            and quick-view actions remain clickable. */}
+        <Link
+          href={`/product/${product.id}`}
+          aria-label={`View ${product.name}`}
+          className="absolute inset-0 z-[15]"
+        />
+
         {/* Top row */}
         <div className="absolute inset-x-0 top-0 z-20 flex items-start justify-between p-4">
           <span className="font-mono text-xs text-primary-foreground mix-blend-difference">
@@ -154,7 +164,12 @@ export function MagazineCard({
           </span>
         </div>
         <h3 className="font-display text-xl leading-snug tracking-tight text-pretty">
-          {product.name}
+          <Link
+            href={`/product/${product.id}`}
+            className="transition-colors duration-[var(--duration-base)] hover:text-copper"
+          >
+            {product.name}
+          </Link>
         </h3>
         <p className="text-sm text-muted-foreground italic">{product.line}</p>
       </div>
