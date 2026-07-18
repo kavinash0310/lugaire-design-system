@@ -25,7 +25,7 @@ const NAV = [
   { label: "Shop", href: "/shop" },
 ]
 
-function SiteHeader() {
+function SiteHeader({ solid = false }: { solid?: boolean }) {
   const [scrolled, setScrolled] = React.useState(false)
   const { count } = useWishlist()
 
@@ -36,11 +36,13 @@ function SiteHeader() {
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
+  const opaque = solid || scrolled
+
   return (
     <header
       className={cn(
         "sticky top-0 z-40 w-full transition-[background-color,border-color,backdrop-filter,color] duration-[var(--duration-base)] ease-[var(--ease-luxe)]",
-        scrolled
+        opaque
           ? "border-b border-border glass text-foreground"
           : "border-b border-transparent bg-transparent text-[#f5f2eb]",
       )}
