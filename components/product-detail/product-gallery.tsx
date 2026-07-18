@@ -73,9 +73,14 @@ export function ProductGallery({
           <motion.div
             key={`${activeIndex}-${colorKey}`}
             custom={direction}
-            initial={(d: number) => ({ opacity: 0, scale: 1.06, x: d * 40 })}
-            animate={{ opacity: 1, scale: 1, x: 0 }}
-            exit={(d: number) => ({ opacity: 0, scale: 1.02, x: d * -40 })}
+            variants={{
+              enter: (d: number) => ({ opacity: 0, scale: 1.06, x: d * 40 }),
+              center: { opacity: 1, scale: 1, x: 0 },
+              exit: (d: number) => ({ opacity: 0, scale: 1.02, x: d * -40 }),
+            }}
+            initial="enter"
+            animate="center"
+            exit="exit"
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-0"
           >

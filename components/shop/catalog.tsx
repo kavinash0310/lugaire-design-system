@@ -11,10 +11,8 @@ import {
   formatPrice,
   type Category,
   type Collection,
-  type Product,
 } from "@/lib/products"
 import { MagazineCard } from "@/components/product/magazine-card"
-import { QuickView } from "@/components/product/quick-view"
 import { cn } from "@/lib/utils"
 
 type SortKey = "curated" | "price-asc" | "price-desc" | "newest"
@@ -35,7 +33,6 @@ export function Catalog() {
   const [maxPrice, setMaxPrice] = useState(PRICE_BOUNDS.max)
   const [sort, setSort] = useState<SortKey>("curated")
   const [count, setCount] = useState(PAGE_SIZE)
-  const [active, setActive] = useState<Product | null>(null)
 
   const filtered = useMemo(() => {
     const list = PRODUCTS.filter((p) => {
@@ -252,7 +249,7 @@ export function Catalog() {
           className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
         >
           {visible.map((p, i) => (
-            <MagazineCard key={p.id} product={p} index={i} onQuickView={() => setActive(p)} />
+            <MagazineCard key={p.id} product={p} index={i} />
           ))}
         </motion.div>
       )}
@@ -268,8 +265,6 @@ export function Catalog() {
           </motion.span>
         </div>
       )}
-
-      <QuickView product={active} onClose={() => setActive(null)} />
     </div>
   )
 }
