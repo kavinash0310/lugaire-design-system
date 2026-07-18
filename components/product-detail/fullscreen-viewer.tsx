@@ -87,9 +87,14 @@ export function FullscreenViewer({
               <motion.div
                 key={index}
                 custom={direction}
-                initial={(d: number) => ({ opacity: 0, x: d * 60, scale: 0.98 })}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                exit={(d: number) => ({ opacity: 0, x: d * -60, scale: 0.98 })}
+                variants={{
+                  enter: (d: number) => ({ opacity: 0, x: d * 60, scale: 0.98 }),
+                  center: { opacity: 1, x: 0, scale: 1 },
+                  exit: (d: number) => ({ opacity: 0, x: d * -60, scale: 0.98 }),
+                }}
+                initial="enter"
+                animate="center"
+                exit="exit"
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="relative h-full w-full"
               >

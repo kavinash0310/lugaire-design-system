@@ -21,12 +21,10 @@ export function MagazineCard({
   product,
   index,
   priority,
-  onQuickView,
 }: {
   product: Product
   index: number
   priority?: boolean
-  onQuickView?: () => void
 }) {
   const { has, toggle } = useWishlist()
   const wished = has(product.id)

@@ -68,9 +68,14 @@ function QuickViewBody({ product }: { product: Product }) {
             <motion.div
               key={activeImage}
               custom={direction}
-              initial={(d: number) => ({ opacity: 0, scale: 1.05, x: d * 28 })}
-              animate={{ opacity: 1, scale: 1, x: 0 }}
-              exit={(d: number) => ({ opacity: 0, scale: 1.02, x: d * -28 })}
+              variants={{
+                enter: (d: number) => ({ opacity: 0, scale: 1.05, x: d * 28 }),
+                center: { opacity: 1, scale: 1, x: 0 },
+                exit: (d: number) => ({ opacity: 0, scale: 1.02, x: d * -28 }),
+              }}
+              initial="enter"
+              animate="center"
+              exit="exit"
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0"
             >
