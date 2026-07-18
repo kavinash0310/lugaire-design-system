@@ -74,7 +74,7 @@ export function StorySection() {
             </div>
 
             {/* Chapters */}
-            <div className="relative flex flex-col">
+            <div className="relative h-[60vh] min-h-80">
               {CHAPTERS.map((c, i) => (
                 <Chapter
                   key={c.n}
@@ -100,15 +100,32 @@ function Chapter({
   index: number
   progress: MotionValue<number>
 }) {
+  const clamp01 = (v: number) => Math.min(1, Math.max(0, v))
   const start = index / CHAPTERS.length
   const end = (index + 1) / CHAPTERS.length
   const mid = (start + end) / 2
-  const opacity = useTransform(
-    progress,
-    [start - 0.04, mid - 0.08, mid + 0.08, end - 0.02],
-    [0.25, 1, 1, 0.25],
-  )
-  const y = useTransform(progress, [start, end], [24, -24])
+
+  // Build a strictly-ascending, [0,1]-clamped stop list so Motion never
+  // receives non-monotonic offsets when generating its WAAPI keyframes.
+  const rawStops = [start + 0.01, mid - 0.06, mid + 0.06, end - 0.01]
+  const stops: number[] = []
+  for (const s of rawStops) {
+    const c = clamp01(s)
+    const prev = stops[stops.length - 1]
+    stops.push(prev === undefined ? c : Math.max(c, prev + 0.001))
+  }
+
+  // Fully fade non-active chapters so only one is legible at a time.
+  // The first chapter enters already visible; the last stays until the end.
+  const isFirst = index === 0
+  const isLast = index === CHAPTERS.length - 1
+  const opacity = useTransform(progress, stops, [
+    isFirst ? 1 : 0,
+    1,
+    1,
+    isLast ? 1 : 0,
+  ])
+  const y = useTransform(progress, [clamp01(start), clamp01(end)], [40, -40])
 
   return (
     <motion.div
