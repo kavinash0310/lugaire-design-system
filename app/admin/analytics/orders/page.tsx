@@ -37,7 +37,7 @@ export default function OrdersAnalyticsPage() {
         </div>
         <div className="rounded-[var(--radius-xl)] border border-border bg-card p-6">
           <h2 className="mb-6 font-display text-lg leading-tight">Status breakdown</h2>
-          <DonutChart data={statusData} format={(n) => String(n)} />
+          <DonutChart data={statusData} format="plain" />
         </div>
       </div>
 

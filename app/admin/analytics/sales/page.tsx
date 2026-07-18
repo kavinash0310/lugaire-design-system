@@ -29,14 +29,14 @@ export default function SalesAnalyticsPage() {
           </div>
           <AreaChart
             data={REVENUE_SERIES.map((r) => ({ label: r.month, value: r.revenue }))}
-            format={(n) => formatCompact(n)}
+            format="compact"
           />
         </div>
         <div className="rounded-[var(--radius-xl)] border border-border bg-card p-6">
           <h2 className="mb-6 font-display text-lg leading-tight">Revenue by category</h2>
           <DonutChart
             data={CATEGORY_SALES.map((c) => ({ label: c.name, value: c.value }))}
-            format={(n) => formatCompact(n)}
+            format="compact"
           />
         </div>
       </div>
@@ -45,7 +45,7 @@ export default function SalesAnalyticsPage() {
         <h2 className="mb-6 font-display text-lg leading-tight">Category performance</h2>
         <RankedBars
           data={CATEGORY_SALES.map((c) => ({ label: c.name, value: c.value }))}
-          format={(n) => formatCompact(n)}
+          format="compact"
         />
       </div>
     </div>

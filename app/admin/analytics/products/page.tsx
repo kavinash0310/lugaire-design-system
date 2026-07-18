@@ -5,12 +5,7 @@ import Link from "next/link"
 import { Package, Boxes, Star, AlertTriangle } from "lucide-react"
 import { StatCard } from "@/components/admin/stat-card"
 import { RankedBars, DonutChart } from "@/components/admin/charts"
-import {
-  ADMIN_PRODUCTS,
-  TOP_PRODUCTS,
-  CATEGORY_SALES,
-  formatCompact,
-} from "@/lib/mock/admin"
+import { ADMIN_PRODUCTS, TOP_PRODUCTS, CATEGORY_SALES } from "@/lib/mock/admin"
 import { formatPrice } from "@/lib/products"
 
 export default function ProductsAnalyticsPage() {
@@ -36,7 +31,7 @@ export default function ProductsAnalyticsPage() {
           <h2 className="mb-6 font-display text-lg leading-tight">Revenue by category</h2>
           <DonutChart
             data={CATEGORY_SALES.map((c) => ({ label: c.name, value: c.value }))}
-            format={(n) => formatCompact(n)}
+            format="compact"
           />
         </div>
       </div>

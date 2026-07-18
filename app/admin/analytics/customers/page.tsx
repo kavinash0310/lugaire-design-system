@@ -39,7 +39,7 @@ export default function CustomersAnalyticsPage() {
         </div>
         <div className="rounded-[var(--radius-xl)] border border-border bg-card p-6">
           <h2 className="mb-6 font-display text-lg leading-tight">Membership tiers</h2>
-          <DonutChart data={tierData} format={(n) => String(n)} />
+          <DonutChart data={tierData} format="plain" />
         </div>
       </div>
     </div>
