@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { AnimatePresence, motion } from "motion/react"
-import { Heart, Minus, Plus, ShoppingBag } from "lucide-react"
+import { Check, Heart, Minus, Plus, ShoppingBag } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { formatPrice, type Product } from "@/lib/products"
 import { useWishlist } from "@/components/site/wishlist-provider"
@@ -38,24 +38,40 @@ export function QuickView({
 
 function QuickViewBody({ product }: { product: Product }) {
   const [activeImage, setActiveImage] = React.useState(0)
+  const [direction, setDirection] = React.useState(1)
   const [color, setColor] = React.useState(product.colors[0]?.name)
   const [size, setSize] = React.useState<string | null>(null)
   const [qty, setQty] = React.useState(1)
+  const [added, setAdded] = React.useState(false)
   const { has, toggle } = useWishlist()
   const wished = has(product.id)
+
+  function selectImage(i: number) {
+    setDirection(i > activeImage ? 1 : -1)
+    setActiveImage(i)
+  }
+
+  function addToBag() {
+    setAdded(true)
+    toast.success("Added to bag", {
+      description: `${product.name}${size ? ` · Size ${size}` : ""}`,
+    })
+    window.setTimeout(() => setAdded(false), 1800)
+  }
 
   return (
     <div className="grid max-h-[86vh] grid-cols-1 overflow-y-auto md:max-h-[80vh] md:grid-cols-2">
       {/* Image stack */}
       <div className="relative flex flex-col gap-3 bg-secondary/40 p-4 sm:p-5">
         <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[var(--radius-xl)] border border-border">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="popLayout" custom={direction}>
             <motion.div
               key={activeImage}
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.99 }}
-              transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+              custom={direction}
+              initial={(d: number) => ({ opacity: 0, scale: 1.05, x: d * 28 })}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              exit={(d: number) => ({ opacity: 0, scale: 1.02, x: d * -28 })}
+              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="absolute inset-0"
             >
               <Image
@@ -67,20 +83,22 @@ function QuickViewBody({ product }: { product: Product }) {
               />
             </motion.div>
           </AnimatePresence>
-          <span className="absolute left-3 top-3 font-mono text-[0.65rem] text-primary-foreground/90 mix-blend-difference">
+          <span className="absolute left-3 top-3 z-10 font-mono text-[0.65rem] text-primary-foreground/90 mix-blend-difference">
             {String(activeImage + 1).padStart(2, "0")} /{" "}
             {String(product.images.length).padStart(2, "0")}
           </span>
         </div>
         <div className="flex gap-2">
           {product.images.map((img, i) => (
-            <button
+            <motion.button
               key={img + i}
               type="button"
-              onClick={() => setActiveImage(i)}
+              onClick={() => selectImage(i)}
               aria-label={`View image ${i + 1}`}
+              whileTap={{ scale: 0.92 }}
+              transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
               className={cn(
-                "relative aspect-square w-16 shrink-0 overflow-hidden rounded-[var(--radius-md)] border transition-all",
+                "relative aspect-square w-16 shrink-0 overflow-hidden rounded-[var(--radius-md)] border transition-all duration-[var(--duration-base)] ease-[var(--ease-luxe)]",
                 i === activeImage
                   ? "border-copper ring-1 ring-copper"
                   : "border-border opacity-60 hover:opacity-100",
@@ -93,7 +111,7 @@ function QuickViewBody({ product }: { product: Product }) {
                 sizes="64px"
                 className="object-cover"
               />
-            </button>
+            </motion.button>
           ))}
         </div>
       </div>
@@ -129,17 +147,20 @@ function QuickViewBody({ product }: { product: Product }) {
           </div>
           <div className="flex items-center gap-2.5">
             {product.colors.map((c) => (
-              <button
+              <motion.button
                 key={c.name}
                 type="button"
                 onClick={() => setColor(c.name)}
                 aria-label={c.name}
                 aria-pressed={color === c.name}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className={cn(
-                  "size-8 rounded-full border transition-all",
+                  "size-8 rounded-full border transition-shadow duration-[var(--duration-base)]",
                   color === c.name
                     ? "ring-2 ring-copper ring-offset-2 ring-offset-card"
-                    : "ring-0 hover:scale-110",
+                    : "ring-0",
                 )}
                 style={{ backgroundColor: c.hex, borderColor: "var(--border)" }}
               />
@@ -157,20 +178,22 @@ function QuickViewBody({ product }: { product: Product }) {
           </div>
           <div className="flex flex-wrap gap-2">
             {product.sizes.map((s) => (
-              <button
+              <motion.button
                 key={s}
                 type="button"
                 onClick={() => setSize(s)}
                 aria-pressed={size === s}
+                whileTap={{ scale: 0.94 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
                 className={cn(
-                  "flex h-10 min-w-11 items-center justify-center rounded-[var(--radius-md)] border px-3 text-sm transition-all",
+                  "flex h-10 min-w-11 items-center justify-center rounded-[var(--radius-md)] border px-3 text-sm transition-colors duration-[var(--duration-base)] ease-[var(--ease-luxe)]",
                   size === s
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border hover:border-foreground",
                 )}
               >
                 {s}
-              </button>
+              </motion.button>
             ))}
           </div>
         </div>
@@ -182,31 +205,63 @@ function QuickViewBody({ product }: { product: Product }) {
               type="button"
               aria-label="Decrease quantity"
               onClick={() => setQty((q) => Math.max(1, q - 1))}
-              className="flex size-10 items-center justify-center text-muted-foreground hover:text-foreground"
+              className="flex size-10 items-center justify-center text-muted-foreground transition-colors hover:text-foreground active:scale-90"
             >
               <Minus className="size-4" />
             </button>
-            <span className="w-8 text-center text-sm tabular-nums">{qty}</span>
+            <AnimatePresence mode="popLayout">
+              <motion.span
+                key={qty}
+                initial={{ y: 8, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -8, opacity: 0 }}
+                transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                className="w-8 text-center text-sm tabular-nums"
+              >
+                {qty}
+              </motion.span>
+            </AnimatePresence>
             <button
               type="button"
               aria-label="Increase quantity"
               onClick={() => setQty((q) => q + 1)}
-              className="flex size-10 items-center justify-center text-muted-foreground hover:text-foreground"
+              className="flex size-10 items-center justify-center text-muted-foreground transition-colors hover:text-foreground active:scale-90"
             >
               <Plus className="size-4" />
             </button>
           </div>
           <Button
             variant="copper"
-            className="flex-1"
-            onClick={() =>
-              toast.success("Added to bag", {
-                description: `${product.name}${size ? ` · Size ${size}` : ""}`,
-              })
-            }
+            className="flex-1 overflow-hidden"
+            onClick={addToBag}
           >
-            <ShoppingBag className="size-4" />
-            Add to bag
+            <AnimatePresence mode="popLayout" initial={false}>
+              {added ? (
+                <motion.span
+                  key="added"
+                  initial={{ y: 14, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -14, opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-center gap-2"
+                >
+                  <Check className="size-4" />
+                  Added
+                </motion.span>
+              ) : (
+                <motion.span
+                  key="add"
+                  initial={{ y: 14, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -14, opacity: 0 }}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex items-center gap-2"
+                >
+                  <ShoppingBag className="size-4" />
+                  Add to bag
+                </motion.span>
+              )}
+            </AnimatePresence>
           </Button>
           <Button
             variant="outline"
@@ -215,9 +270,15 @@ function QuickViewBody({ product }: { product: Product }) {
             aria-pressed={wished}
             onClick={() => toggle(product.id)}
           >
-            <Heart
-              className={cn("size-4", wished && "fill-copper text-copper")}
-            />
+            <motion.span
+              animate={wished ? { scale: [1, 1.4, 0.92, 1] } : { scale: 1 }}
+              transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-center justify-center"
+            >
+              <Heart
+                className={cn("size-4", wished && "fill-copper text-copper")}
+              />
+            </motion.span>
           </Button>
         </div>
 

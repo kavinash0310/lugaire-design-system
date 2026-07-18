@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
+import { AnimatePresence, motion } from "motion/react"
 import {
   CATEGORIES,
   COLLECTIONS,
@@ -82,6 +83,10 @@ export function Catalog() {
     io.observe(node)
     return () => io.disconnect()
   }, [hasMore, filtered.length])
+
+  // Signature that changes whenever the result set changes, so the grid can
+  // gracefully cross-fade between filtered states.
+  const filterSignature = `${category}-${collection}-${color ?? "any"}-${maxPrice}-${sort}`
 
   const activeFilters =
     (category !== "All" ? 1 : 0) +
@@ -186,25 +191,46 @@ export function Catalog() {
           </div>
 
           <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-muted-foreground">
-            <span>
-              {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
-            </span>
-            {activeFilters > 0 && (
-              <button
-                type="button"
-                onClick={reset}
-                className="text-copper transition-opacity hover:opacity-70"
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.span
+                key={filtered.length}
+                initial={{ y: 6, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -6, opacity: 0 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="tabular-nums"
               >
-                Clear {activeFilters} {activeFilters === 1 ? "filter" : "filters"}
-              </button>
-            )}
+                {filtered.length} {filtered.length === 1 ? "piece" : "pieces"}
+              </motion.span>
+            </AnimatePresence>
+            <AnimatePresence initial={false}>
+              {activeFilters > 0 && (
+                <motion.button
+                  type="button"
+                  onClick={reset}
+                  initial={{ opacity: 0, x: 8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 8 }}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-copper transition-opacity hover:opacity-70"
+                >
+                  Clear {activeFilters} {activeFilters === 1 ? "filter" : "filters"}
+                </motion.button>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
 
       {/* Grid */}
       {visible.length === 0 ? (
-        <div className="flex flex-col items-center justify-center gap-3 py-32 text-center">
+        <motion.div
+          key="empty"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center justify-center gap-3 py-32 text-center"
+        >
           <p className="font-serif text-2xl text-foreground">Nothing matches, yet.</p>
           <p className="max-w-sm text-sm text-muted-foreground">
             Ease your filters to reveal more of the house. Every piece is made to be found.
@@ -216,20 +242,30 @@ export function Catalog() {
           >
             Reset the room
           </button>
-        </div>
+        </motion.div>
       ) : (
-        <div className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div
+          key={filterSignature}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {visible.map((p, i) => (
             <MagazineCard key={p.id} product={p} index={i} onQuickView={() => setActive(p)} />
           ))}
-        </div>
+        </motion.div>
       )}
 
       {hasMore && (
         <div ref={sentinel} className="flex justify-center py-16">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground">
+          <motion.span
+            animate={{ opacity: [0.4, 1, 0.4] }}
+            transition={{ duration: 1.8, ease: "easeInOut", repeat: Number.POSITIVE_INFINITY }}
+            className="text-[11px] uppercase tracking-[0.3em] text-muted-foreground"
+          >
             Revealing more
-          </span>
+          </motion.span>
         </div>
       )}
 
