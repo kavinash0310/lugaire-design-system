@@ -44,17 +44,12 @@ export function ContactForm() {
 
       <Field>
         <Label htmlFor="topic">Subject</Label>
-        <Select value={topic} onValueChange={setTopic}>
-          <SelectTrigger id="topic">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {TOPICS.map((t) => (
-              <SelectItem key={t} value={t}>
-                {t}
-              </SelectItem>
-            ))}
-          </SelectContent>
+        <Select id="topic" name="topic" value={topic} onChange={(e) => setTopic(e.target.value)}>
+          {TOPICS.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
         </Select>
       </Field>
 
