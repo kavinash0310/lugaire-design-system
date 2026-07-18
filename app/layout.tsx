@@ -26,11 +26,11 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: 'LUGAIRE — Considered Luxury',
+    default: 'LUGAIRE — Luxury. Minimal. Timeless.',
     template: '%s · LUGAIRE',
   },
   description:
-    'LUGAIRE is a luxury clothing house built on restraint, permanence, and craft. Timeless menswear, considered and enduring.',
+    'An immersive luxury fashion house. Considered garments woven in Biella and Huddersfield, made without compromise — a wardrobe built to outlive the season.',
   keywords: ['LUGAIRE', 'luxury clothing', 'menswear', 'streetwear', 'premium fashion'],
   generator: 'v0.app',
 }
