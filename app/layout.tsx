@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { Cormorant_Garamond, Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/toast'
+import { WishlistProvider } from '@/components/site/wishlist-provider'
+import { AmbientCursor } from '@/components/site/ambient-cursor'
 import './globals.css'
 
 const geistSans = Geist({
@@ -26,11 +28,11 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: 'LUGAIRE — Considered Luxury',
+    default: 'LUGAIRE — A Cinematic House of Menswear',
     template: '%s · LUGAIRE',
   },
   description:
-    'LUGAIRE is a luxury clothing house built on restraint, permanence, and craft. Timeless menswear, considered and enduring.',
+    'LUGAIRE is a luxury clothing house built on restraint, permanence, and craft. A cinematic, scroll-driven journey through considered, enduring menswear.',
   keywords: ['LUGAIRE', 'luxury clothing', 'menswear', 'streetwear', 'premium fashion'],
   generator: 'v0.app',
 }
@@ -56,8 +58,11 @@ export default function RootLayout({
     >
       <body className="min-h-dvh antialiased">
         <ThemeProvider>
-          {children}
-          <Toaster />
+          <WishlistProvider>
+            <AmbientCursor />
+            {children}
+            <Toaster />
+          </WishlistProvider>
         </ThemeProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
