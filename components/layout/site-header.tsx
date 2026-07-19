@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { Heart, Menu } from "lucide-react"
+import { Heart, LayoutDashboard, Menu, ShoppingBag, User } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Container } from "@/components/layout/container"
 import { ThemeToggle } from "@/components/layout/theme-toggle"
@@ -19,10 +19,16 @@ import {
 } from "@/components/ui/drawer"
 
 const NAV = [
-  { label: "The House", href: "/#story" },
-  { label: "Collections", href: "/#collections" },
-  { label: "Timeline", href: "/#timeline" },
   { label: "Shop", href: "/shop" },
+  { label: "Collections", href: "/#collections" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+]
+
+// Demo entry points (no auth yet) surfaced in the mobile menu.
+const DEMO_NAV = [
+  { label: "My Account", href: "/account", icon: User },
+  { label: "Admin Panel", href: "/admin", icon: LayoutDashboard },
 ]
 
 function SiteHeader({ solid = false }: { solid?: boolean }) {
@@ -75,7 +81,7 @@ function SiteHeader({ solid = false }: { solid?: boolean }) {
               size="icon-sm"
               aria-label={`Wishlist, ${count} items`}
               className="relative"
-              render={<Link href="/shop" />}
+              render={<Link href="/account/wishlist" />}
             >
               <Heart className="size-5" />
               {count > 0 && (
@@ -83,6 +89,23 @@ function SiteHeader({ solid = false }: { solid?: boolean }) {
                   {count}
                 </span>
               )}
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Cart"
+              render={<Link href="/cart" />}
+            >
+              <ShoppingBag className="size-5" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="My account"
+              className="hidden sm:inline-flex"
+              render={<Link href="/account" />}
+            >
+              <User className="size-5" />
             </Button>
             <Button
               variant="copper"
@@ -127,6 +150,22 @@ function SiteHeader({ solid = false }: { solid?: boolean }) {
                   <Button variant="copper" className="mt-4" render={<Link href="/shop" />}>
                     Shop the collection
                   </Button>
+
+                  <p className="mt-6 px-3 text-eyebrow text-muted-foreground">Demo access</p>
+                  {DEMO_NAV.map((item) => (
+                    <DrawerClose
+                      key={item.label}
+                      render={
+                        <Link
+                          href={item.href}
+                          className="flex items-center gap-3 rounded-[var(--radius-md)] px-3 py-3 text-base text-foreground transition-colors hover:bg-secondary"
+                        />
+                      }
+                    >
+                      <item.icon className="size-4" />
+                      {item.label}
+                    </DrawerClose>
+                  ))}
                 </DrawerBody>
               </DrawerContent>
             </Drawer>

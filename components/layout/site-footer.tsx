@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { Container } from "@/components/layout/container"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -5,15 +6,30 @@ import { Input } from "@/components/ui/input"
 const COLUMNS = [
   {
     title: "House",
-    links: ["Collections", "Atelier", "Journal", "Sustainability"],
+    links: [
+      { label: "Shop", href: "/shop" },
+      { label: "Collections", href: "/#collections" },
+      { label: "About", href: "/about" },
+      { label: "Contact", href: "/contact" },
+    ],
   },
   {
     title: "Client Care",
-    links: ["Shipping", "Returns", "Size Guide", "Contact"],
+    links: [
+      { label: "FAQ", href: "/faq" },
+      { label: "Shipping Policy", href: "/shipping" },
+      { label: "Return Policy", href: "/returns" },
+      { label: "Size Guide", href: "/size-guide" },
+    ],
   },
   {
-    title: "Company",
-    links: ["About", "Careers", "Press", "Stockists"],
+    title: "Guides",
+    links: [
+      { label: "Fabric Guide", href: "/fabric-guide" },
+      { label: "Care Guide", href: "/care-guide" },
+      { label: "Privacy Policy", href: "/privacy" },
+      { label: "Terms & Conditions", href: "/terms" },
+    ],
   },
 ]
 
@@ -48,13 +64,13 @@ function SiteFooter() {
                 <p className="text-eyebrow text-muted-foreground">{col.title}</p>
                 <ul className="flex flex-col gap-2.5">
                   {col.links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#"
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
                         className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                       >
-                        {link}
-                      </a>
+                        {link.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -67,16 +83,21 @@ function SiteFooter() {
           <p className="text-xs text-muted-foreground">
             {"\u00A9"} {new Date().getFullYear()} Lugaire. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 text-xs text-muted-foreground">
-            <a href="#" className="transition-colors hover:text-foreground">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+            <Link href="/privacy" className="transition-colors hover:text-foreground">
               Privacy
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            </Link>
+            <Link href="/terms" className="transition-colors hover:text-foreground">
               Terms
-            </a>
-            <a href="#" className="transition-colors hover:text-foreground">
-              Cookies
-            </a>
+            </Link>
+            <span aria-hidden className="text-border">|</span>
+            <span className="text-eyebrow">Demo</span>
+            <Link href="/account" className="transition-colors hover:text-foreground">
+              Customer
+            </Link>
+            <Link href="/admin" className="transition-colors hover:text-foreground">
+              Admin
+            </Link>
           </div>
         </div>
       </Container>
