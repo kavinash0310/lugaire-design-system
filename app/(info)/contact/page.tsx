@@ -10,13 +10,13 @@ export const metadata: Metadata = {
 
 const CHANNELS = [
   { label: "Client Care", value: "care@lugaire.com", note: "Replies within one business day" },
-  { label: "Appointments", value: "atelier@lugaire.com", note: "Private fittings in Paris & London" },
+  { label: "Studio Visits", value: "studio@lugaire.com", note: "By appointment, in Paris & London" },
   { label: "Press & Partnerships", value: "press@lugaire.com", note: "For editorial and collaboration" },
 ]
 
 const HOUSES = [
   { city: "Paris", lines: ["18 Rue Saint-Honoré", "75001 Paris, France", "+33 1 42 00 18 00"] },
-  { city: "London", lines: ["11 Savile Row", "Mayfair, W1S 3PG", "+44 20 7100 4400"] },
+  { city: "London", lines: ["24 Redchurch Street", "Shoreditch, E2 7DP", "+44 20 7100 4400"] },
 ]
 
 export default function ContactPage() {

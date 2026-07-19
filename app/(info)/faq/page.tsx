@@ -92,7 +92,7 @@ const GROUPS: { title: string; items: AccordionItemData[] }[] = [
       {
         question: "Where are your garments made?",
         answer:
-          "Every piece is made by hand in small ateliers across Italy, England, Scotland, and Portugal, from cloth we mill with partners of decades. All materials are fully traceable.",
+          "Every piece is cut, printed, and finished by hand in small batches, from premium heavyweight cottons, French terry, and brushed fleece. We produce in considered runs rather than mass volume, so quality is checked piece by piece.",
       },
     ],
   },

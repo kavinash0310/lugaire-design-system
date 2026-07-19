@@ -7,37 +7,37 @@ import { Reveal } from "@/components/motion/reveal"
 
 export const metadata: Metadata = {
   title: "Fabric Guide",
-  description: "The cloths of the house — wool, cashmere, leather, cotton, and linen, and how each behaves.",
+  description: "The cloths of the house — combed cotton, heavyweight jersey, French terry, and brushed fleece, and how each behaves.",
 }
 
 const FABRICS = [
   {
-    name: "Virgin & Double-Faced Wool",
+    name: "220 GSM Combed & Compact Cotton",
     image: "/editorial/fabric-wool.png",
-    origin: "Milled in Italy & England",
-    body: "The backbone of the house. We work with virgin and double-faced wools for their weight, memory, and drape — cloths that hold a line without stiffness and warm without bulk. Naturally breathable and resilient, wool sheds creases with rest.",
-    traits: ["Temperature-regulating", "Naturally water-resistant", "Holds shape", "Ages gracefully"],
+    origin: "Knitted & finished in India",
+    body: "The everyday base of the house. Long-staple cotton, combed to remove short fibres and compacted for a dense, smooth surface. Bio-washed to a broken-in hand from the first wear, it holds its shape through years of laundering without thinning.",
+    traits: ["Breathable", "Pre-shrunk", "Softens with wear", "Holds its shape"],
   },
   {
-    name: "Grade-A Cashmere",
+    name: "240 GSM Heavyweight Jersey",
     image: "/editorial/fabric-cashmere.png",
-    origin: "Mongolian fibre, knitted in Scotland",
-    body: "Sourced from the finest, longest fibres and washed in spring water, our cashmere softens with every wear rather than pilling. Fully-fashioned and knitted in a single piece to eliminate seams, it is warmth made weightless.",
-    traits: ["Exceptionally soft", "Lightweight warmth", "Softens with wear", "Fully-fashioned"],
+    origin: "Garment-dyed in India",
+    body: "A dense single-jersey knit that gives our oversized tees their weight and fall. Garment-dyed for depth of colour that fades slowly and beautifully, with reinforced shoulder seams and a ribbed collar built to keep its line.",
+    traits: ["Substantial weight", "Structured drape", "Deep, lasting colour", "Reinforced seams"],
   },
   {
-    name: "Vegetable-Tanned Leather",
+    name: "340–400 GSM French Terry & Fleece",
     image: "/editorial/fabric-leather.png",
-    origin: "Tanned in Italy",
-    body: "Aniline-dyed lambskin and calfskin, tanned slowly with natural agents. Left largely unfinished so the hide breathes and develops a personal patina over years, not seasons. Every piece becomes uniquely yours.",
-    traits: ["Develops patina", "Full-grain hide", "Breathable", "Generational wear"],
+    origin: "Loopback & brushed, made in India",
+    body: "The warmth of the house. French terry for sweatshirts and brushed heavyweight fleece for hoodies — structured on the outside, soft against the skin within. Boxy, weighty, and made to be lived in.",
+    traits: ["Brushed interior", "Boxy structure", "Warm without bulk", "Everyday durability"],
   },
   {
-    name: "Long-Staple Cotton & Linen",
+    name: "230 GSM Pima Cotton Blend",
     image: "/editorial/look-shirt.png",
-    origin: "Woven in Portugal & Japan",
-    body: "Two-ply Egyptian poplin, washed oxford, and garment-washed European linen. Long-staple fibres give a smoother, stronger, more lustrous cloth that launders well and only improves with use. Linen creases — beautifully, intentionally.",
-    traits: ["Breathable", "Long-staple fibre", "Launders well", "Lived-in character"],
+    origin: "Long-staple Pima, finished in India",
+    body: "Our most refined base. A Pima-blend jersey with a subtle sheen and an exceptional drape — smoother and more lustrous than standard cotton, it reads closer to knitwear than a basic tee. Understated, and quietly rich.",
+    traits: ["Silken hand", "Subtle sheen", "Superior drape", "Resists pilling"],
   },
 ]
 
@@ -47,7 +47,7 @@ export default function FabricGuidePage() {
       <InfoHero
         eyebrow="The Cloth"
         title="Fabric guide"
-        description="We mill our cloth with partners of decades. Understanding a fabric is the first step to keeping it — here is how each behaves, and why we chose it."
+        description="Every LUGAIRE piece begins with the cloth. Understanding a fabric is the first step to keeping it — here is how each behaves, and why we chose it."
       />
 
       <Container size="default" className="py-14 md:py-16">

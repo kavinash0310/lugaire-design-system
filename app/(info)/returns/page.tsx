@@ -64,8 +64,8 @@ const SECTIONS: PolicySection[] = [
     heading: "Final-sale items",
     body: (
       <p>
-        Made-to-measure commissions and monogrammed pieces are produced individually and are therefore final sale,
-        unless they arrive faulty. Faulty items are always covered, regardless of category.
+        Signature Series drops and limited archive pieces are produced in small numbered runs and are therefore
+        final sale, unless they arrive faulty. Faulty items are always covered, regardless of category.
       </p>
     ),
   },
