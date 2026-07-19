@@ -3,12 +3,21 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { motion, useScroll, useTransform } from "motion/react"
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+  useReducedMotion,
+} from "motion/react"
 import { ArrowDown, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 export function CinematicHero() {
   const ref = React.useRef<HTMLElement>(null)
+  const reduceMotion = useReducedMotion()
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -18,21 +27,65 @@ export function CinematicHero() {
   const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0])
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"])
 
+  // Mouse-reactive depth — a slow, restrained parallax that gives the frame
+  // a sense of physical space. Disabled entirely under reduced-motion.
+  const mx = useMotionValue(0)
+  const my = useMotionValue(0)
+  const px = useSpring(mx, { stiffness: 60, damping: 20, mass: 0.6 })
+  const py = useSpring(my, { stiffness: 60, damping: 20, mass: 0.6 })
+  const imageX = useTransform(px, [-0.5, 0.5], ["-2.5%", "2.5%"])
+  const imageY = useTransform(py, [-0.5, 0.5], ["-2%", "2%"])
+
+  function handlePointerMove(e: React.PointerEvent<HTMLElement>) {
+    if (reduceMotion) return
+    const rect = e.currentTarget.getBoundingClientRect()
+    mx.set((e.clientX - rect.left) / rect.width - 0.5)
+    my.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  function handlePointerLeave() {
+    mx.set(0)
+    my.set(0)
+  }
+
   return (
     <section
       ref={ref}
       id="top"
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
       className="grain relative h-[100svh] min-h-[640px] w-full overflow-hidden"
     >
+      {/* Parallax image plane — carries scroll scale + mouse depth. */}
       <motion.div style={{ scale, y }} className="absolute inset-0">
-        <Image
-          src="/editorial/hero-overcoat.png"
-          alt="A model in a tailored charcoal overcoat within a vast concrete gallery"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
+        <motion.div
+          style={reduceMotion ? undefined : { x: imageX, y: imageY }}
+          className="absolute inset-[-4%]"
+        >
+          <motion.div
+            initial={
+              reduceMotion
+                ? { opacity: 0 }
+                : { clipPath: "inset(14% 14% 14% 14%)", scale: 1.12 }
+            }
+            animate={
+              reduceMotion
+                ? { opacity: 1 }
+                : { clipPath: "inset(0% 0% 0% 0%)", scale: 1 }
+            }
+            transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+            className="absolute inset-0"
+          >
+            <Image
+              src="/editorial/hero-overcoat.png"
+              alt="A model in an oversized heavyweight charcoal tee within a vast concrete gallery"
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover"
+            />
+          </motion.div>
+        </motion.div>
       </motion.div>
 
       {/* Cinematic scrim */}
@@ -47,39 +100,39 @@ export function CinematicHero() {
           <motion.span
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.6 }}
             className="text-eyebrow text-[#f5f2eb]/70"
           >
-            Autumn Cycle · MMXXV
+            Heavyweight Essentials · MMXXV
           </motion.span>
 
           <div className="overflow-hidden">
             <motion.h1
               initial={{ opacity: 0, y: "100%" }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.7 }}
               className="font-display text-[clamp(3rem,11vw,10rem)] font-semibold leading-[0.9] tracking-[-0.03em] text-balance"
             >
-              The Weight
+              Weight You
               <br />
-              of Restraint
+              Can Wear
             </motion.h1>
           </div>
 
           <motion.p
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.95 }}
             className="max-w-md text-base leading-relaxed text-[#f5f2eb]/80 text-pretty sm:text-lg"
           >
-            A house built on permanence, not seasons. Move slowly — every piece
-            asks to be studied before it is worn.
+            Oversized, heavyweight cotton cut to a clean architectural line.
+            No noise — only the fall of the fabric and the weight in your hand.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.65 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 1.1 }}
             className="flex flex-wrap items-center gap-3 pt-2"
           >
             <Button variant="copper" size="lg" render={<Link href="/shop" />}>

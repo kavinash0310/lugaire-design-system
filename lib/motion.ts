@@ -34,6 +34,37 @@ export const fadeUp: Variants = {
   },
 }
 
+/** Larger, slower rise for hero-scale headlines and editorial blocks. */
+export const fadeUpLg: Variants = {
+  hidden: { opacity: 0, y: 48 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: ease.luxe },
+  },
+}
+
+/** Cinematic mask reveal — content wipes up from behind a clip edge. */
+export const maskReveal: Variants = {
+  hidden: { clipPath: 'inset(100% 0% 0% 0%)', y: 28 },
+  visible: {
+    clipPath: 'inset(0% 0% 0% 0%)',
+    y: 0,
+    transition: { duration: 1.05, ease: ease.luxe },
+  },
+}
+
+/** Progressive image reveal — soft blur + scale settle. */
+export const imageReveal: Variants = {
+  hidden: { opacity: 0, scale: 1.08, filter: 'blur(14px)' },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: { duration: 1.2, ease: ease.luxe },
+  },
+}
+
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: transition.base },
