@@ -25,7 +25,7 @@ const MAP: Record<string, Variant> = {
   Draft: "muted",
   Guest: "muted",
   Member: "outline",
-  "Atelier Circle": "copper",
+  "Inner Circle": "copper",
   Unfulfilled: "outline",
   // negative
   Cancelled: "destructive",

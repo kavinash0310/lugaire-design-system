@@ -52,68 +52,55 @@ export function galleryShots(product: Product): GalleryShot[] {
 export type Spec = { label: string; value: string }
 
 const GSM: Record<Category, string> = {
-  Outerwear: "480 GSM",
-  Knitwear: "320 GSM · 12-gauge",
-  Tailoring: "260 GSM",
-  Shirting: "140 GSM",
-  Trousers: "300 GSM",
-  Leather: "1.2 mm full-grain",
+  "T-Shirts": "220 GSM · Single Jersey",
+  "Long Sleeves": "240 GSM · Single Jersey",
+  Sweatshirts: "340 GSM · French Terry",
+  Hoodies: "400 GSM · Brushed Fleece",
 }
 
 const FIT: Record<Category, string> = {
-  Outerwear: "Relaxed, column silhouette",
-  Knitwear: "True to size, fully-fashioned",
-  Tailoring: "Tailored, half-canvas",
-  Shirting: "Considered regular fit",
-  Trousers: "High-rise, tapered leg",
-  Leather: "Close, second-skin fit",
+  "T-Shirts": "Oversized, drop-shoulder",
+  "Long Sleeves": "Relaxed, boxy",
+  Sweatshirts: "Oversized, boxy",
+  Hoodies: "Oversized, heavyweight",
 }
 
 const NECK: Record<Category, string> = {
-  Outerwear: "Notch lapel collar",
-  Knitwear: "Ribbed roll-neck",
-  Tailoring: "Peak lapel",
-  Shirting: "Cutaway collar",
-  Trousers: "—",
-  Leather: "Stand collar",
+  "T-Shirts": "Ribbed crew neck",
+  "Long Sleeves": "Ribbed crew neck",
+  Sweatshirts: "Ribbed crew neck",
+  Hoodies: "Double-layer hood",
 }
 
 const SLEEVE: Record<Category, string> = {
-  Outerwear: "Full-length, set-in",
-  Knitwear: "Saddle shoulder, long",
-  Tailoring: "Working four-button cuff",
-  Shirting: "Long, single-button cuff",
-  Trousers: "—",
-  Leather: "Ribbed-cuff, long",
+  "T-Shirts": "Short, drop-shoulder",
+  "Long Sleeves": "Long, ribbed cuff",
+  Sweatshirts: "Long, ribbed cuff",
+  Hoodies: "Long, ribbed cuff",
 }
 
 const ORIGINS = [
-  "Made in Italy",
-  "Made in England",
-  "Made in Scotland",
-  "Made in Portugal",
-  "Made in Japan",
+  "Made in India",
+  "Knit & cut in Tiruppur",
+  "Milled & sewn in India",
+  "Reactive-dyed in India",
 ] as const
 
 const WASH = [
-  "Dry clean only. Rest between wears.",
-  "Hand wash cold. Dry flat, away from light.",
-  "Specialist clean. Store on a broad hanger.",
-  "Cool iron. Never tumble dry.",
+  "Machine wash cold, inside out. Tumble dry low.",
+  "Wash cold with like colours. Do not bleach.",
+  "Cold wash, inside out. Cool iron if needed.",
+  "Pre-shrunk. Machine wash cold, hang to dry.",
 ] as const
 
 /** Fabric family inferred from the material description. */
 function fabricType(material: string): string {
   const m = material.toLowerCase()
-  if (m.includes("cashmere")) return "Brushed cashmere"
-  if (m.includes("wool")) return "Woven / knitted wool"
-  if (m.includes("linen")) return "Garment-washed linen"
-  if (m.includes("cotton") || m.includes("poplin") || m.includes("oxford"))
-    return "Long-staple cotton"
-  if (m.includes("leather") || m.includes("suede") || m.includes("calfskin") || m.includes("lambskin"))
-    return "Aniline-finished hide"
-  if (m.includes("shearling")) return "Whole-hide shearling"
-  return "House-milled cloth"
+  if (m.includes("fleece")) return "Brushed heavyweight fleece"
+  if (m.includes("terry")) return "Loopback French terry"
+  if (m.includes("pima")) return "Long-staple Pima cotton"
+  if (m.includes("cotton")) return "Combed & compact cotton"
+  return "Single jersey knit"
 }
 
 /**
@@ -178,24 +165,23 @@ export type StoryBlock = {
  */
 export function storyBlocks(product: Product): StoryBlock[] {
   const imgs = product.images
-  const weight = GSM[product.category]
   const blocks: StoryBlock[] = [
     {
-      eyebrow: "The Material",
-      heading: `Crafted from ${weight} ${product.material.toLowerCase()}.`,
+      eyebrow: "The Fabric",
+      heading: `Cut from ${product.material.toLowerCase()}.`,
       body: product.note,
       image: imgs[imgs.length - 1] ?? imgs[0],
     },
     {
-      eyebrow: "The Intent",
-      heading: "Built for everyday luxury.",
-      body: `${product.line} A piece conceived to be worn, not preserved — one that earns its character across seasons rather than losing it.`,
+      eyebrow: "The Fit",
+      heading: "Built for the oversized silhouette.",
+      body: `${product.line} A premium heavyweight piece conceived to be worn every day — bio-washed, pre-shrunk, and made to soften into a second skin rather than wear thin.`,
       image: imgs[1] ?? imgs[0],
     },
     {
       eyebrow: "The Line",
-      heading: "Designed with timeless proportions.",
-      body: `Cut in the ${product.collection} line, the ${product.name} answers to nothing but the body and the light. No logo, no season stamp — only proportion, weight, and restraint.`,
+      heading: "Minimal branding, considered proportion.",
+      body: `Part of the ${product.collection} line, the ${product.name} answers to nothing but the body and the light. No loud prints, no fake logos — only proportion, weight, and restraint.`,
       image: imgs[0],
     },
   ]
@@ -216,19 +202,19 @@ export type Review = {
 
 const REVIEWER_POOL: Omit<Review, "photo">[] = [
   {
-    name: "Julian M.",
-    location: "Copenhagen",
+    name: "Arjun M.",
+    location: "Bengaluru",
     rating: 5,
-    title: "Weight you can feel",
-    body: "The drape is extraordinary. It hangs like nothing else I own and only looks better with wear.",
+    title: "The weight is unreal",
+    body: "You feel the 240 GSM the second you put it on. The oversized fit falls perfectly and it only gets softer with every wash.",
     verified: true,
   },
   {
-    name: "Andre L.",
-    location: "Milan",
+    name: "Kabir S.",
+    location: "Mumbai",
     rating: 5,
-    title: "The last one I'll buy",
-    body: "I've stopped looking. The construction is honest and the proportions are exactly right.",
+    title: "My new everyday tee",
+    body: "Boxy, heavyweight, zero logos on the front. Exactly the premium blank I'd been looking for. Sizing is true for the oversized cut.",
     verified: true,
   },
   {
@@ -236,23 +222,23 @@ const REVIEWER_POOL: Omit<Review, "photo">[] = [
     location: "Tokyo",
     rating: 4,
     title: "Quietly perfect",
-    body: "Understated in the best way. Sizing ran true; I took my usual and it fell beautifully.",
+    body: "Understated in the best way. The drop shoulder sits right and the fabric feels premium. Took my usual size and it fell beautifully.",
     verified: true,
   },
   {
-    name: "Sébastien R.",
+    name: "Léo R.",
     location: "Paris",
     rating: 5,
-    title: "Investment, not purchase",
-    body: "Expensive, yes — but the cost fades and the object remains. This is how clothing should be made.",
+    title: "Streetwear, done right",
+    body: "The bio-washed hand and the clean cut make it feel far more expensive than it is. This is how a heavyweight tee should be made.",
     verified: true,
   },
   {
     name: "Marcus D.",
     location: "New York",
     rating: 5,
-    title: "Impeccable",
-    body: "Photographs do not do the finishing justice. Every seam is considered.",
+    title: "Impeccable finish",
+    body: "Photos don't do the fabric justice. Dense, structured, and the ribbed collar holds its shape. Every seam is considered.",
     verified: true,
   },
 ]
