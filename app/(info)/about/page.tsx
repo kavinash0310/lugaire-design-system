@@ -12,16 +12,16 @@ export const metadata: Metadata = {
 }
 
 const PILLARS = [
-  { title: "Restraint", body: "We remove before we add. No logo, no season stamp — only proportion, weight, and line." },
-  { title: "Permanence", body: "Every piece is conceived to outlast trend, and to be worn rather than preserved." },
-  { title: "Craft", body: "Made by hand, in small ateliers, from cloth we mill with partners of decades." },
+  { title: "Restraint", body: "We remove before we add. No loud logo, no season stamp — only proportion, weight, and line." },
+  { title: "Permanence", body: "Every piece is conceived to outlast the drop, and to be worn rather than shelved." },
+  { title: "Craft", body: "Cut and finished by hand in small batches, from premium heavyweight cottons and terries." },
 ]
 
 const NUMBERS = [
-  { value: "2016", label: "Founded in Paris" },
-  { value: "40h", label: "Per tailored jacket" },
-  { value: "6", label: "Mills, all in Europe" },
-  { value: "100%", label: "Traceable materials" },
+  { value: "2016", label: "The house founded" },
+  { value: "240", label: "GSM heavyweight cotton" },
+  { value: "30", label: "Pieces in the house" },
+  { value: "100%", label: "Premium combed cotton" },
 ]
 
 export default function AboutPage() {
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <InfoHero
         eyebrow="The House"
         title="A quiet kind of luxury"
-        description="LUGAIRE is a house of menswear built on three convictions — restraint, permanence, and craft. We make considered clothing designed to endure, and to be kept close to those who wear it."
+        description="LUGAIRE is a streetwear house built on three convictions — restraint, permanence, and craft. We make considered, heavyweight essentials designed to endure, and to be kept close to those who wear them."
       />
 
       {/* Manifesto image + text */}
@@ -45,9 +45,9 @@ export default function AboutPage() {
               Clothing that answers to nothing but the body and the light.
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
-              We began with a single overcoat and a refusal to compromise. A decade on, the house remains small
-              by design — each cycle a tightly edited set of pieces, each piece the result of a long conversation
-              between cloth, cut, and the person who will wear it.
+              We began with a single heavyweight tee and a refusal to compromise. Years on, the house remains
+              small by design — each drop a tightly edited set of pieces, each piece the result of a long
+              conversation between cloth, cut, and the person who will wear it.
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
               We do not chase the calendar. We build a permanent wardrobe, then add to it slowly, only when a

@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion/reveal"
 
 export const metadata: Metadata = {
   title: "Care Guide",
-  description: "How to keep each cloth at its best — wool, cashmere, leather, and cotton, cared for well.",
+  description: "How to keep each piece at its best — heavyweight cotton, French terry, fleece, and printed graphics, cared for well.",
 }
 
 const PRINCIPLES: { icon: LucideIcon; title: string; body: string }[] = [
@@ -19,39 +19,39 @@ const PRINCIPLES: { icon: LucideIcon; title: string; body: string }[] = [
 
 const GUIDES = [
   {
-    fabric: "Wool & Tailoring",
+    fabric: "Heavyweight Cotton Tees",
     steps: [
-      "Brush gently with a soft garment brush after wearing, following the grain of the cloth.",
-      "Hang on a broad, shaped hanger and rest for a day between wears.",
-      "Steam to release creases rather than pressing directly with a hot iron.",
-      "Dry clean only when necessary — over-cleaning strips the natural lanolin.",
+      "Machine wash cold on a gentle cycle, turned inside out, with like colours.",
+      "Use a mild detergent and skip the fabric softener — it coats the fibres and dulls the hand.",
+      "Line dry in shade, or tumble on low and remove while slightly damp to protect the shape.",
+      "Cool iron on the reverse if needed; never iron directly over a print.",
     ],
   },
   {
-    fabric: "Cashmere & Knitwear",
+    fabric: "French Terry & Fleece",
     steps: [
-      "Hand wash in cool water with a gentle wool detergent, or use a specialist cashmere cycle.",
-      "Never wring. Press water out gently and reshape by hand.",
-      "Dry flat, away from heat and light, to preserve the fibre and shape.",
-      "De-pill with a cashmere comb as needed; fold rather than hang to avoid shoulder marks.",
+      "Wash cold, inside out, and fasten any drawcords to keep them from tangling.",
+      "Wash with similar weights to avoid pilling against rougher fabrics.",
+      "Reshape by hand and lay flat or line dry; high heat can shrink and stiffen the loopback.",
+      "Steam rather than press to lift creases from the body and hood.",
     ],
   },
   {
-    fabric: "Leather & Suede",
+    fabric: "Printed Graphics",
     steps: [
-      "Wipe with a soft, dry cloth after wear to lift surface dust.",
-      "Allow to dry naturally if caught in rain — never near direct heat.",
-      "Condition leather once or twice a year with a natural balm to nourish the hide.",
-      "Brush suede with a dedicated brush; store on a shaped hanger, away from light.",
+      "Always turn the garment inside out before washing to shield the print.",
+      "Wash cold and avoid soaking; prolonged water contact can lift ink over time.",
+      "Never tumble on high heat — warmth is the fastest way to crack a print.",
+      "Iron only on the reverse, keeping the plate clear of the printed area.",
     ],
   },
   {
-    fabric: "Cotton & Linen",
+    fabric: "Colour & Longevity",
     steps: [
-      "Machine wash cool on a gentle cycle, turned inside out, with like colours.",
-      "Wash linen separately at first; it may release a little colour and lint.",
-      "Line dry where possible, or tumble on low and remove while slightly damp.",
-      "Cool iron while damp for a crisp finish, or embrace linen's natural crease.",
+      "Wash garment-dyed and washed pieces separately for the first few cycles.",
+      "Keep washes cold and infrequent — the less you wash, the longer the colour lasts.",
+      "Dry away from direct sunlight, which fades dye faster than any detergent.",
+      "Fold heavyweight pieces rather than hanging to avoid shoulder marks and stretch.",
     ],
   },
 ]

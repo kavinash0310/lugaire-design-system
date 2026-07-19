@@ -7,7 +7,7 @@ import { Catalog } from "@/components/shop/catalog"
 export const metadata: Metadata = {
   title: "The Shop",
   description:
-    "The full LUGAIRE catalogue — thirty considered pieces across outerwear, knitwear, tailoring and leather. Filter, preview, and keep what endures.",
+    "The full LUGAIRE catalogue — thirty considered pieces across tees, long sleeves, sweatshirts and hoodies. Filter, preview, and keep what endures.",
 }
 
 export default function ShopPage() {

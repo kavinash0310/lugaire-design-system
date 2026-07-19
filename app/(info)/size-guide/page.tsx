@@ -14,7 +14,7 @@ import {
 
 export const metadata: Metadata = {
   title: "Size Guide",
-  description: "House measurements for outerwear, tailoring, shirting, knitwear, and trousers.",
+  description: "House measurements for tees, long sleeves, sweatshirts, and hoodies — cut oversized, laid flat.",
 }
 
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const
@@ -23,64 +23,64 @@ type Chart = { rows: { label: string; values: number[] }[]; note: string }
 
 const CHARTS: { title: string; caption: string; chart: Chart }[] = [
   {
-    title: "Outerwear & Tailoring",
-    caption: "Coats, jackets, suits, and blazers. Measurements in centimetres.",
+    title: "T-Shirts",
+    caption: "Oversized tees, measured flat. Measurements in centimetres.",
     chart: {
       rows: [
-        { label: "Chest", values: [96, 100, 104, 110, 116, 122] },
-        { label: "Waist", values: [80, 84, 88, 94, 100, 106] },
-        { label: "Shoulder", values: [44, 45, 46, 47.5, 49, 50.5] },
-        { label: "Length", values: [72, 74, 76, 78, 80, 82] },
-        { label: "Sleeve", values: [63, 64, 65, 66, 67, 68] },
+        { label: "Chest (flat)", values: [54, 56, 58, 61, 64, 67] },
+        { label: "Length", values: [68, 70, 72, 74, 76, 78] },
+        { label: "Shoulder", values: [52, 54, 56, 58, 60, 62] },
+        { label: "Sleeve", values: [22, 23, 24, 25, 26, 27] },
       ],
-      note: "Half-canvas tailoring; chest measured across the fullest point.",
+      note: "Drop-shoulder oversized cut; chest measured flat across the fullest point.",
     },
   },
   {
-    title: "Shirting",
-    caption: "Dress shirts, oxfords, and overshirts. Measurements in centimetres.",
+    title: "Long Sleeves",
+    caption: "Boxy heavyweight long sleeves. Measurements in centimetres.",
     chart: {
       rows: [
-        { label: "Chest", values: [98, 102, 106, 112, 118, 124] },
-        { label: "Neck", values: [37, 38, 39.5, 41, 42.5, 44] },
-        { label: "Length", values: [74, 76, 78, 80, 82, 84] },
-        { label: "Sleeve", values: [62, 63.5, 65, 66.5, 68, 69.5] },
+        { label: "Chest (flat)", values: [55, 57, 59, 62, 65, 68] },
+        { label: "Length", values: [69, 71, 73, 75, 77, 79] },
+        { label: "Shoulder", values: [53, 55, 57, 59, 61, 63] },
+        { label: "Sleeve", values: [60, 61, 62, 63, 64, 65] },
       ],
-      note: "Considered regular fit; sits close without constraint.",
+      note: "Boxy body with ribbed cuffs; sleeve measured from the shoulder seam.",
     },
   },
   {
-    title: "Knitwear",
-    caption: "Cashmere, merino, and lambswool. Measurements in centimetres.",
+    title: "Sweatshirts",
+    caption: "French terry crewnecks. Measurements in centimetres.",
     chart: {
       rows: [
-        { label: "Chest", values: [94, 98, 104, 110, 116, 122] },
-        { label: "Length", values: [66, 68, 70, 72, 74, 76] },
-        { label: "Sleeve", values: [61, 62.5, 64, 65.5, 67, 68.5] },
+        { label: "Chest (flat)", values: [57, 59, 61, 64, 67, 70] },
+        { label: "Length", values: [68, 70, 72, 74, 76, 78] },
+        { label: "Shoulder", values: [55, 57, 59, 61, 63, 65] },
+        { label: "Sleeve", values: [60, 61, 62, 63, 64, 65] },
       ],
-      note: "Fully-fashioned; softens and relaxes marginally with wear.",
+      note: "Boxy, structured fit; relaxes marginally with wear and washing.",
     },
   },
   {
-    title: "Trousers",
-    caption: "By waist size. Measurements in centimetres.",
+    title: "Hoodies",
+    caption: "Brushed-fleece oversized hoodies. Measurements in centimetres.",
     chart: {
       rows: [
-        { label: "Waist", values: [76, 80, 84, 90, 96, 102] },
-        { label: "Hip", values: [96, 100, 104, 110, 116, 122] },
-        { label: "Inseam", values: [82, 82, 84, 84, 86, 86] },
-        { label: "Leg opening", values: [38, 39, 40, 42, 44, 46] },
+        { label: "Chest (flat)", values: [59, 61, 63, 66, 69, 72] },
+        { label: "Length", values: [69, 71, 73, 75, 77, 79] },
+        { label: "Shoulder", values: [56, 58, 60, 62, 64, 66] },
+        { label: "Sleeve", values: [61, 62, 63, 64, 65, 66] },
       ],
-      note: "High-rise cut; inseam can be tailored on request.",
+      note: "Heavyweight oversized cut; add a size for a boxier, cropped look.",
     },
   },
 ]
 
 const HOW_TO = [
-  { label: "Chest", body: "Measure around the fullest part of the chest, keeping the tape level and under the arms." },
-  { label: "Waist", body: "Measure around the natural waistline, at the narrowest point, without pulling tight." },
-  { label: "Shoulder", body: "Measure across the back, from the outer edge of one shoulder seam to the other." },
-  { label: "Sleeve", body: "Measure from the shoulder seam, along a slightly bent arm, to the wrist bone." },
+  { label: "Chest", body: "Lay the garment flat and measure straight across from underarm to underarm." },
+  { label: "Length", body: "Measure from the highest point of the shoulder, beside the collar, down to the hem." },
+  { label: "Shoulder", body: "Measure flat across the back, from the outer edge of one shoulder seam to the other." },
+  { label: "Sleeve", body: "Measure from the shoulder seam along the top of the sleeve to the cuff edge." },
 ]
 
 export default function SizeGuidePage() {
@@ -89,7 +89,7 @@ export default function SizeGuidePage() {
       <InfoHero
         eyebrow="Client Care"
         title="Size guide"
-        description="Every piece is cut to a considered, true-to-size fit. If you sit between sizes, the house recommends sizing up for a softer line."
+        description="Every piece is cut oversized by design. Take your usual size for the intended relaxed fit, or size up for a boxier, more dramatic silhouette."
       />
 
       <Container size="default" className="py-14 md:py-16">
@@ -136,8 +136,8 @@ export default function SizeGuidePage() {
           <p className="text-eyebrow text-copper">The method</p>
           <h2 className="mt-3 font-display text-3xl leading-tight tracking-tight">How to measure</h2>
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground text-pretty">
-            For the truest result, take your measurements over a light garment, using a soft tape and, where
-            possible, the help of another pair of hands.
+            The truest way to find your fit is to lay a piece you already love flat, measure it, and compare it
+            to the charts above. All measurements are taken flat, in centimetres.
           </p>
           <div className="mt-8 grid gap-8 sm:grid-cols-2">
             {HOW_TO.map((h, i) => (
