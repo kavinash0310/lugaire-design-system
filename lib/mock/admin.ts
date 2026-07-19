@@ -262,6 +262,33 @@ export const CUSTOMER_GROWTH = [
   { month: "Jun", new: 402, returning: 690 },
 ]
 
+export type AdminRole = "Owner" | "Manager" | "Editor" | "Support"
+
+export type AdminUser = {
+  id: string
+  name: string
+  email: string
+  role: AdminRole
+  status: "Active" | "Invited" | "Suspended"
+  lastActive: string
+  avatar: string
+}
+
+export const ADMIN_USERS: AdminUser[] = [
+  { id: "u1", name: "Eleanor Voss", email: "eleanor@lugaire.com", role: "Owner", status: "Active", lastActive: "2 min ago", avatar: "/editorial/hero-portrait.png" },
+  { id: "u2", name: "Marcus Chen", email: "marcus@lugaire.com", role: "Manager", status: "Active", lastActive: "1 hr ago", avatar: "/editorial/look-suit.png" },
+  { id: "u3", name: "Isabelle Fournier", email: "isabelle@lugaire.com", role: "Editor", status: "Active", lastActive: "Yesterday", avatar: "/editorial/look-knit.png" },
+  { id: "u4", name: "Dev Patel", email: "dev@lugaire.com", role: "Support", status: "Invited", lastActive: "—", avatar: "/editorial/look-shirt.png" },
+  { id: "u5", name: "Greta Lindqvist", email: "greta@lugaire.com", role: "Editor", status: "Suspended", lastActive: "3 weeks ago", avatar: "/editorial/look-trouser.png" },
+]
+
+export const ADMIN_ROLES: { role: AdminRole; description: string; permissions: string[] }[] = [
+  { role: "Owner", description: "Full access to every setting, including billing and users.", permissions: ["All catalog", "All orders", "Settings", "Users & billing"] },
+  { role: "Manager", description: "Manage catalog, orders, and marketing. No billing access.", permissions: ["All catalog", "All orders", "Marketing"] },
+  { role: "Editor", description: "Create and edit products, collections, and content.", permissions: ["Catalog", "Media", "Reviews"] },
+  { role: "Support", description: "View orders and assist customers. Read-only catalog.", permissions: ["View orders", "View customers"] },
+]
+
 export function formatCompact(value: number): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",

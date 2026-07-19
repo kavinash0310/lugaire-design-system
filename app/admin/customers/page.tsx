@@ -5,7 +5,7 @@ import Link from "next/link"
 import { AdminPageHeader } from "@/components/admin/page-header"
 import { StatusBadge } from "@/components/admin/status-badge"
 import { Input } from "@/components/ui/input"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar } from "@/components/ui/avatar"
 import { CUSTOMERS } from "@/lib/mock/admin"
 import { formatPrice } from "@/lib/products"
 import {
@@ -62,10 +62,7 @@ export default function AdminCustomersPage() {
               <TableRow key={c.id} className="cursor-pointer">
                 <TableCell>
                   <Link href={`/admin/customers/${c.id}`} className="flex items-center gap-3">
-                    <Avatar className="size-9">
-                      <AvatarImage src={c.avatar || "/placeholder.svg"} alt="" />
-                      <AvatarFallback>{c.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
+                    <Avatar src={c.avatar} name={c.name} size={36} />
                     <span className="flex flex-col">
                       <span className="text-sm font-medium">{c.name}</span>
                       <span className="text-xs text-muted-foreground">{c.email}</span>

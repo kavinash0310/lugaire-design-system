@@ -2,6 +2,14 @@
 
 import * as React from "react"
 import { cn } from "@/lib/utils"
+import { formatCompact } from "@/lib/mock/admin"
+
+/* Serializable format descriptor so charts can be used from Server Components. */
+export type NumberFormat = "compact" | "plain"
+
+function fmt(n: number, f: NumberFormat = "plain"): string {
+  return f === "compact" ? formatCompact(n) : String(n)
+}
 
 /* ──────────────────────────────────────────────────────────────────────────
    Lightweight, dependency-free charts rendered as SVG. Tuned to the LUGAIRE
@@ -25,12 +33,12 @@ function niceMax(value: number): number {
 export function AreaChart({
   data,
   height = 240,
-  format = (n) => String(n),
+  format = "plain",
   className,
 }: {
   data: { label: string; value: number }[]
   height?: number
-  format?: (n: number) => string
+  format?: NumberFormat
   className?: string
 }) {
   const W = 720
@@ -80,7 +88,7 @@ export function AreaChart({
       <div className="sr-only">
         {data.map((d) => (
           <span key={d.label}>
-            {d.label}: {format(d.value)}.{" "}
+            {d.label}: {fmt(d.value, format)}.{" "}
           </span>
         ))}
       </div>
@@ -93,12 +101,12 @@ export function AreaChart({
 export function BarChart({
   data,
   height = 240,
-  format = (n) => String(n),
+  format = "plain",
   className,
 }: {
   data: { label: string; value: number }[]
   height?: number
-  format?: (n: number) => string
+  format?: NumberFormat
   className?: string
 }) {
   const max = niceMax(Math.max(...data.map((d) => d.value)))
@@ -111,7 +119,7 @@ export function BarChart({
               <div
                 className="w-full rounded-t-[var(--radius-sm)] bg-copper/80 transition-all duration-[var(--duration-base)] ease-[var(--ease-luxe)] group-hover:bg-copper"
                 style={{ height: `${(d.value / max) * 100}%` }}
-                title={`${d.label}: ${format(d.value)}`}
+                title={`${d.label}: ${fmt(d.value, format)}`}
               />
             </div>
             <span className="text-xs text-muted-foreground">{d.label}</span>
@@ -175,11 +183,11 @@ export function GroupedBarChart({
 
 export function RankedBars({
   data,
-  format = (n) => String(n),
+  format = "plain",
   className,
 }: {
   data: { label: string; value: number }[]
-  format?: (n: number) => string
+  format?: NumberFormat
   className?: string
 }) {
   const max = Math.max(...data.map((d) => d.value))
@@ -189,7 +197,7 @@ export function RankedBars({
         <div key={d.label} className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between text-sm">
             <span className="text-foreground">{d.label}</span>
-            <span className="tabular-nums text-muted-foreground">{format(d.value)}</span>
+            <span className="tabular-nums text-muted-foreground">{fmt(d.value, format)}</span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
             <div
@@ -203,7 +211,7 @@ export function RankedBars({
   )
 }
 
-/* ── Donut chart ────────────────────────────────────────────────────────── */
+/* ── Donut chart ────────────────────────────���───────────────────────────── */
 
 const DONUT_COLORS = [
   "var(--color-copper)",
@@ -216,11 +224,11 @@ const DONUT_COLORS = [
 
 export function DonutChart({
   data,
-  format = (n) => String(n),
+  format = "plain",
   className,
 }: {
   data: { label: string; value: number }[]
-  format?: (n: number) => string
+  format?: NumberFormat
   className?: string
 }) {
   const total = data.reduce((s, d) => s + d.value, 0)
@@ -253,7 +261,7 @@ export function DonutChart({
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-display text-2xl leading-none tracking-tight">{format(total)}</span>
+          <span className="font-display text-2xl leading-none tracking-tight">{fmt(total, format)}</span>
           <span className="text-xs text-muted-foreground">Total</span>
         </div>
       </div>
@@ -267,7 +275,7 @@ export function DonutChart({
               />
               <span className="text-foreground">{d.label}</span>
             </span>
-            <span className="tabular-nums text-muted-foreground">{format(d.value)}</span>
+            <span className="tabular-nums text-muted-foreground">{fmt(d.value, format)}</span>
           </li>
         ))}
       </ul>
